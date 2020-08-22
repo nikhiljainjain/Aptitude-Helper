@@ -3,19 +3,13 @@ import * as mongoose from "mongoose";
 import { MONTH_TIME_IN_MSEC, schemaName } from "../../config";
 
 let userLogSchema = new mongoose.Schema({
-    userID: {
-        type: mongoose.Schema.Types.ObjectId,
-        required: true,
-        ref: schemaName.users,
-        default: null,
-        select: false
-    },
     //original ip adress from which user have logged in
     registerIPAddress:{
         type: String,
         default: null,
         lowercase: true,
-        trim: true
+        trim: true,
+        unique: true
     },
     //changed ip address received from the user
     newIPAddress:{

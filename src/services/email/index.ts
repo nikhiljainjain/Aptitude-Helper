@@ -27,7 +27,7 @@ export const sendEmail = async (name:string, email:string, subject:string,
                 {
                 "From": {
                     "Email": process.env.NO_REPLAY_EMAIL,
-                    "Name": "Jinvani App"
+                    "Name": "Aptitiude App"
                 },
                 "To": [
                     {
@@ -64,25 +64,25 @@ export const sendOTPEmail = async (email:string, otpCode:string) =>{
         Hey Admin,
 		<br>
 		<br>
-		Your OTP for Jinvani Admin Panel is ${otpCode}.
+		Your OTP for Aptitiude Web Admin Panel is ${otpCode}.
 		<br>
 		<p><i>Please don't share this OTP with anyone else.</i></p>
         <br>
         <h3><b>Jai Jinder</b></h3>
         <br>
-        <h3><b>Team Jinvani App</b></h3>
+        <h3><b>Team Aptitiude Web App</b></h3>
         </body>
         </html>`;
 
     const textContent = `Hey Admin,
     \n
-    Your OTP for Jinvani Admin Panel is ${otpCode}.
+    Your OTP for Aptitiude Web Admin Panel is ${otpCode}.
     \n
     Please don't share this OTP with anyone else.
     \n
     Jai Jinder
     \n
-    Team Jinvani App`;
+    Team Aptitiude Web App`;
 
 	const subject = "OTP Verification";	
 	await sendEmail("Admin", email, subject, textContent, htmlContent);

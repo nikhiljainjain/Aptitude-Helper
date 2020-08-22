@@ -16,10 +16,7 @@ import { connectToMongo } from "./database/connect";
 import redisClientConnect from "./database/redis";
 import { ONE_DAY_TIME_IN_MSEC, API_VERSION, 
 	PRODUCTION_ENV, invalidRes, COOKIE_PROP, mongo_store } from './config';
-import { userRouter, otpRouter, tempRouter, 
-	listenRouter, adminLoginRouter, adminRouter, audioRouter } from './routes';
-import { cookieValid, adminCookieValid } from './services';
-import { adminController } from './controllers';
+import { mainRouter } from './routes';
 
 connectToMongo();
 redisClientConnect;
@@ -60,15 +57,7 @@ if (PRODUCTION_ENV){
 	app.use(mongoSanitize());
 }
 
-app.use(`/${API_VERSION}/otp`, otpRouter);
-app.use(`/${API_VERSION}/temp`, tempRouter);
-
-app.use(`/${API_VERSION}/users`, cookieValid, userRouter);
-app.use(`/${API_VERSION}/listen`, cookieValid, listenRouter);
-
-app.use(`/${API_VERSION}/audio`, adminCookieValid, audioRouter);
-app.use(`/${API_VERSION}/unknown`, adminCookieValid, adminRouter);
-app.use(`/${API_VERSION}/unknown/login`, adminCookieValid, adminLoginRouter);
+app.use(`/`, mainRouter);
 
 // catch 404 and forward to error handler
 app.use((req, res)=>{
