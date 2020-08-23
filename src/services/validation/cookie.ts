@@ -19,19 +19,18 @@ const jwtSecret = process.env.JWT_SECRET || "SECRET";
  * @param next 
  */
 export const cookieValid = async (req: Request, res: Response, next:Function) => {
-    res.locals = invalidRes;
-	res.locals.data = "LOGIN AGAIN";
-
-	//extracting cookies from req parameter
-	let cookie:any = req.cookies || req.headers["x-auth-token"]; 
-	cookie = cookie ? cookie.split(",")[0]:null;
-	
-	//cookies are invalid & access able to only valid user cookie
-	if (!cookie || !validator.isJWT(cookie))
-	  	return setCookie("", res, req);
-	
 	//try catch defined for jwt error  if something wrong happened with jwt
     try {
+		res.locals = invalidRes;
+		res.locals.data = "LOGIN AGAIN";
+
+		//extracting cookies from req parameter
+		let cookie:any = req.cookies["x-auth-token"] || req.headers["x-auth-token"]; 
+		//cookie = cookie ? cookie.split(",")[0]:null;
+		
+		//cookies are invalid & access able to only valid user cookie
+		if (!cookie || !validator.isJWT(cookie)) setCookie("", res, req);
+
 		//token validation from jwt
 		const { token, ipAddress }:any = jsonwebtoken.verify(cookie, jwtSecret);
 

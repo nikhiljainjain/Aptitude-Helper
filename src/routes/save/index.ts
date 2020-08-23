@@ -1,15 +1,16 @@
 import express, { Request, Response } from "express";
 import { saveController } from "../../controllers";
 import { cookieValid } from "../../services";
+import { PRODUCTION_ENV, validRes } from "../../config";
 
 export const router = express.Router({
     strict: true
 });
 
-router.post('/ipAddress', (req: Request, res: Response)=>{
-    saveController.ipAddress(req, res);
+router.post('/unknown', (req: Request, res: Response)=>{
+    PRODUCTION_ENV ? saveController.ipAddress(req, res):res.json(validRes);
 });
 
-router.patch('/save/data', cookieValid, (req: Request, res: Response)=>{
+router.post('/words', cookieValid, (req: Request, res: Response)=>{
     saveController.functionUsesCount(req, res);
 });

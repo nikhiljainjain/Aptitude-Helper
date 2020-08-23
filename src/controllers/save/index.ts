@@ -7,7 +7,7 @@ import UsesLogs from "../../database/model/uses";
 export class SaveController{
     public async ipAddress(req: Request<import("express-serve-static-core").ParamsDictionary>, res: Response) {
         try{
-            if (req.cookies) return res.json(validRes);
+            if (req.cookies["x-auth-token"]) return res.json(validRes);
 
             await saveUserChangedIP(req,res);
             

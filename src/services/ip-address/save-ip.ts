@@ -13,7 +13,7 @@ import { filterIPAddress } from ".";
  */
 export const saveUserChangedIP = async (req:Request, res: Response) =>{
     try{
-        const { ip, originalUrl } = req;
+        const { ip, originalUrl, headers } = req;
 
         const newLocation = await findIPData(ip);
         const ipAddress = filterIPAddress(ip);
@@ -21,7 +21,8 @@ export const saveUserChangedIP = async (req:Request, res: Response) =>{
         const userLogData = new UserLog({
             registerIPAddress: ipAddress,
             newLocation,
-            originalUrl
+            originalUrl,
+            userAgent: headers["user-agent"]
         });
 
         await userLogData.save();       

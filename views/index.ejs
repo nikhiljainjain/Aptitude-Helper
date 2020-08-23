@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Aptitude Helper</title>
+    <!-- jqyuery cdn -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <!-- Compiled and minified CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
     <!-- Compiled and minified JavaScript -->
@@ -16,59 +18,99 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <!-- google fonts 2 -->
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@1,500&display=swap" rel="stylesheet">  
+    <style>
+        .dance-font {
+            font-family: 'Dancing Script', cursive;
+        }
+    
+        .playfair{
+            font-family: 'Playfair Display', serif;
+        }
+    
+        .box-round{
+            padding: 1px;
+            border-radius: 12px;
+        }
+    </style>
 </head>
-<style>
-    .dance-font {
-        font-family: 'Dancing Script', cursive;
-    }
-
-    .playfair{
-        font-family: 'Playfair Display', serif;
-    }
-
-    .box-round{
-        padding: 1px;
-        border-radius: 12px;
-    }
-</style>
 <body class="indigo lighten-2">
     <br>
     <div class="container white center box-round">
         <h1 class="center indigo-text text-darken-3 dance-font" >Aptitude Helper</h1>
         <br>
-        <form class="playfair" onsubmit="findValues()">
+        <div class="playfair">
             <div class="input-field container">
                 <i class="material-icons prefix">short_text</i>
-                <input id="word" type="text" class="validate">
+                <input id="word" type="text" class="validate" pattern="^[a-zA-Z]*$" />
                 <label for="word">Word</label>
                 <span class="helper-text" style="font-size:large">
                     You will get the ASCII, Index and difference value of letters of a word.
                 </span>
             </div>
-            <button type="submit" class="waves-effect waves-dark btn-large indigo darken-3">
+            <button onclick="findValues()" class="waves-effect waves-dark btn-large indigo darken-3">
                 <span class="playfair">FIND</span>
                 <i class="material-icons right">send</i>
             </button>
-        </form>
+        </div>
         <br>
         <div class="container">
-            <ul class="collapsible">
+            <ul class="collapsible popout">
                 <li>
                     <div class="collapsible-header"><i class="material-icons">fiber_manual_record</i>ASCII Values</div>
-                    <div class="collapsible-body"><span id="ascii-value">Lorem ipsum dolor sit amet.</span></div>
+                    <div class="collapsible-body"><span id="ascii-value"></span></div>
                 </li>
                 <li>
                     <div class="collapsible-header"><i class="material-icons">fiber_manual_record</i>Index Values</div>
-                    <div class="collapsible-body"><span id="index-value">Lorem ipsum dolor sit amet.</span></div>
+                    <div class="collapsible-body"><span id="index-value"></span></div>
                 </li>
                 <li>
                     <div class="collapsible-header"><i class="material-icons">fiber_manual_record</i>Difference Between Letters</div>
-                    <div class="collapsible-body"><span id="diff">Lorem ipsum dolor sit amet.</span></div>
+                    <div class="collapsible-body"><span id="diff-value"></span></div>
                 </li>
             </ul>
         </div>
         <br>
     </div>
 </body>
-<script src="/js/index.js"></script>
+<script>
+let strConvert = [];
+$(document).ready(()=>{
+    $('.collapsible').collapsible();
+    $.post("/<%= API_VERSION %>/save/unknown");
+});
+
+const findIndex = (temp) => {
+    return ((temp > 96) ? (temp%96):(temp%64));
+}
+
+const findValues = () => {
+    let word = $("#word").val();
+    if (!word){ 
+        alert("Enter a word "+word);
+        return;
+    }
+
+    let i,temp, asciiV = [], indexV = [], diffV =[];
+    strConvert.push(word);
+
+    temp = word.charCodeAt(0);
+    asciiV.push(` ${word.charAt(0)} = ${temp} `);
+    indexV.push(` ${word.charAt(0)} = ${findIndex(temp)} `);
+
+    for(i=1;i<word.length;i++){
+        temp = word.charCodeAt(i);
+        asciiV.push(` ${word.charAt(i)} = ${temp} `);
+        indexV.push(` ${word.charAt(i)} = ${findIndex(temp)} `);
+        diffV.push(` ${word.charAt(i-1)} - ${word.charAt(i)} = ${Math.abs(findIndex(word.charCodeAt(i-1)) - findIndex(temp))} `);
+    }
+
+    $('.collapsible').collapsible('open', 2);
+    $("#ascii-value").text(asciiV);
+    $("#index-value").text(indexV);
+    $("#diff-value").text(diffV);
+};
+
+$(window).on("beforeunload", ()=> (strConvert.length > 0) ? 
+    $.post("/<%= API_VERSION %>/save/words", { strConvert }):null);
+</script>
 </html>

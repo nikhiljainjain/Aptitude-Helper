@@ -31,7 +31,7 @@ let userLogSchema = new mongoose.Schema({
         trim: true
     },
     //device information
-    deviceData: {
+    userAgent: {
         type: String,
         default: null,
         trim: true

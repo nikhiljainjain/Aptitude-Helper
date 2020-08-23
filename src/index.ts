@@ -41,8 +41,6 @@ app.use(morgan(logMethod));
 app.use(express.json({ limit: '20kb' }));
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
-//app.use(express.static(path.join(__dirname, '../public')));
 app.use(expressSession({
     secret: process.env.SESSION_SECRET || "",
     name: "sessionId",
