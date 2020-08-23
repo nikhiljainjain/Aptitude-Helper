@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aptitude Helper</title>
+    <!-- Compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <!-- Compiled and minified JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <!-- google fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@500&display=swap" rel="stylesheet"> 
+    <!-- icons for gender -->
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	<!--material icons-->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!-- google fonts 2 -->
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@1,500&display=swap" rel="stylesheet">  
+</head>
+<style>
+    .dance-font {
+        font-family: 'Dancing Script', cursive;
+    }
+
+    .playfair{
+        font-family: 'Playfair Display', serif;
+    }
+
+    .box-round{
+        padding: 1px;
+        border-radius: 12px;
+    }
+</style>
+<body class="indigo lighten-2">
+    <br>
+    <div class="container white center box-round">
+        <h1 class="center indigo-text text-darken-3 dance-font" >Aptitude Helper</h1>
+        <br>
+        <form class="playfair" onsubmit="findValues()">
+            <div class="input-field container">
+                <i class="material-icons prefix">short_text</i>
+                <input id="word" type="text" class="validate">
+                <label for="word">Word</label>
+                <span class="helper-text" style="font-size:large">
+                    You will get the ASCII, Index and difference value of letters of a word.
+                </span>
+            </div>
+            <button type="submit" class="waves-effect waves-dark btn-large indigo darken-3">
+                <span class="playfair">FIND</span>
+                <i class="material-icons right">send</i>
+            </button>
+        </form>
+        <br>
+        <div class="container">
+            <ul class="collapsible">
+                <li>
+                    <div class="collapsible-header"><i class="material-icons">fiber_manual_record</i>ASCII Values</div>
+                    <div class="collapsible-body"><span id="ascii-value">Lorem ipsum dolor sit amet.</span></div>
+                </li>
+                <li>
+                    <div class="collapsible-header"><i class="material-icons">fiber_manual_record</i>Index Values</div>
+                    <div class="collapsible-body"><span id="index-value">Lorem ipsum dolor sit amet.</span></div>
+                </li>
+                <li>
+                    <div class="collapsible-header"><i class="material-icons">fiber_manual_record</i>Difference Between Letters</div>
+                    <div class="collapsible-body"><span id="diff">Lorem ipsum dolor sit amet.</span></div>
+                </li>
+            </ul>
+        </div>
+        <br>
+    </div>
+</body>
+<script src="/js/index.js"></script>
+</html>
