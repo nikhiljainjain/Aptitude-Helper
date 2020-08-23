@@ -9,6 +9,7 @@ import mongoSanitize from "express-mongo-sanitize";
 import expressSession from "express-session";
 import connectMongo from "connect-mongo";
 import cookieParser from "cookie-parser";
+import path from "path";
 
 dotenvConfig();
 //module made by developers for this package
@@ -16,7 +17,7 @@ import { connectToMongo } from "./database/connect";
 import redisClientConnect from "./database/redis";
 import { ONE_DAY_TIME_IN_MSEC, API_VERSION, 
 	PRODUCTION_ENV, invalidRes, COOKIE_PROP, mongo_store } from './config';
-import { mainRouter } from './routes';
+import { mainRouter, saveRouter } from './routes';
 
 connectToMongo();
 redisClientConnect;
@@ -31,11 +32,17 @@ const limit = rateLimit({
 	message: "TOO MANY REQUEST"
 });
 
+// view engine setup
+app.set('views', path.join(__dirname, '../views'));
+app.set('view engine', 'ejs');
+
 Sentry.init({ dsn: process.env.SENTRY_DSN });
 app.use(morgan(logMethod));
 app.use(express.json({ limit: '20kb' }));
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
+app.use(express.static(path.join(__dirname, 'public')));
+//app.use(express.static(path.join(__dirname, '../public')));
 app.use(expressSession({
     secret: process.env.SESSION_SECRET || "",
     name: "sessionId",
@@ -58,6 +65,7 @@ if (PRODUCTION_ENV){
 }
 
 app.use(`/`, mainRouter);
+app.use(`/${API_VERSION}/save`, saveRouter);
 
 // catch 404 and forward to error handler
 app.use((req, res)=>{

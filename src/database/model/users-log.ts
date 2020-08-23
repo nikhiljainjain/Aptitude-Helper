@@ -12,12 +12,12 @@ let userLogSchema = new mongoose.Schema({
         unique: true
     },
     //changed ip address received from the user
-    newIPAddress:{
-        type: String,
-        default: null,
-        lowercase: true,
-        trim: true
-    },
+    // newIPAddress:{
+    //     type: String,
+    //     default: null,
+    //     lowercase: true,
+    //     trim: true
+    // },
     //new location based on new ip address
     newLocation: {
         type: String,
@@ -30,11 +30,11 @@ let userLogSchema = new mongoose.Schema({
         default: null,
         trim: true
     },
-    //data will delete after 6 month
-    createdAt: {
-        type: Date,
-        default: Date.now(),
-        expires: (MONTH_TIME_IN_MSEC*6)
+    //device information
+    deviceData: {
+        type: String,
+        default: null,
+        trim: true
     }
 },
 //time when user was registered to our platform

@@ -2,6 +2,7 @@ import { Request, Response } from "express";
 
 import { hereIsError, findIPData } from "../index";
 import UserLog from "../../database/model/users-log";
+import { filterIPAddress } from ".";
 
 /**
  * @description => saving the ip address & location 
@@ -12,20 +13,19 @@ import UserLog from "../../database/model/users-log";
  */
 export const saveUserChangedIP = async (req:Request, res: Response) =>{
     try{
-        const { ipAddress } = res.locals;
         const { ip, originalUrl } = req;
 
         const newLocation = await findIPData(ip);
+        const ipAddress = filterIPAddress(ip);
         
         const userLogData = new UserLog({
             registerIPAddress: ipAddress,
-            newIPAddress: ip,
             newLocation,
             originalUrl
         });
 
-        await userLogData.save();
+        await userLogData.save();       
     }catch(error){
-        hereIsError(error, req.originalUrl, res);
+        hereIsError(error, req.originalUrl);
     }
 }

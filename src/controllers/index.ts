@@ -1,7 +1,7 @@
-import { MainController } from "./main";
+import { SaveController } from "./save";
 
-const mainController = new MainController();
+const saveController = new SaveController();
 
 export {
-    mainController
+    saveController
 };

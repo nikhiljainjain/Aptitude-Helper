@@ -1,7 +1,9 @@
 
 //schemas name saved in db
 export const schemaName = {
-    usersLog: "aptitude_users_ip_log"
+    errorLog: "aptitude_server_error_log",
+    usersLog: "aptitude_users_ip_log",
+    usesLogs: "aptitude_uses"
 };
 
 //gender possible values
