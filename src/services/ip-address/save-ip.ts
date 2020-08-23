@@ -15,17 +15,26 @@ export const saveUserChangedIP = async (req:Request, res: Response) =>{
     try{
         const { ip, originalUrl, headers } = req;
 
-        const newLocation = await findIPData(ip);
+        const newLocationJSON = await findIPData(ip);
         const ipAddress = filterIPAddress(ip);
-        
-        const userLogData = new UserLog({
-            registerIPAddress: ipAddress,
-            newLocation,
-            originalUrl,
-            userAgent: headers["user-agent"]
-        });
+        const newLocation = JSON.stringify(newLocationJSON);
+    
+        try{
+            const userLogData = new UserLog({
+                registerIPAddress: ipAddress,
+                newLocation,
+                originalUrl,
+                userAgent: headers["user-agent"]
+            });
 
-        await userLogData.save();       
+            await userLogData.save();
+        }catch(error){
+            if (error.code === 11000){
+                return;
+            }else{
+                throw error;
+            }
+        }       
     }catch(error){
         hereIsError(error, req.originalUrl);
     }

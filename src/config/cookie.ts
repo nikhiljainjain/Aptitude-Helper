@@ -8,11 +8,11 @@ export const COOKIES_AGE = (ONE_DAY_TIME_IN_MSEC * 400);
 export const COOKIE_PROP = {
     maxAge: ONE_DAY_TIME_IN_MSEC,
     path: '/',
-    httpOnly: true,
+    /*httpOnly: true,
     //secure will false if server running in dev or testing env
     secure: PRODUCTION_ENV,
     sameSite: true,
-    domain: process.env.DOMAIN_NAME || ""
+    domain: process.env.DOMAIN_NAME || ""*/
 };
 
 //mongo store option for development used for session storage

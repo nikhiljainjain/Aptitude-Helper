@@ -40,6 +40,8 @@ export const findIPData = async (ip:string="24.48.0.1") => {
     try {
         let ipAdd = filterIPAddress(ip);
 
+        if (ipAdd === "127.0.0.1") return {};
+
         const [freegeoipRes, ipapiRes] = await axios.all([
           axios.get(`https://freegeoip.app/json/${ipAdd}`),
           axios.get(`http://ip-api.com/json/${ipAdd}?fields=29597184`)

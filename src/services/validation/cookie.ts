@@ -7,7 +7,7 @@ import validator  from "validator";
 import UserLog from "../../database/model/users-log";
 import { invalidRes, COOKIES_AGE } from "../../config";
 import { hereIsError } from "../error";
-import { setCookieAndHeaderSend, setCookie } from "../response";
+import { setCookie } from "../response";
 
 const jwtSecret = process.env.JWT_SECRET || "SECRET";
 
@@ -29,7 +29,7 @@ export const cookieValid = async (req: Request, res: Response, next:Function) =>
 		//cookie = cookie ? cookie.split(",")[0]:null;
 		
 		//cookies are invalid & access able to only valid user cookie
-		if (!cookie || !validator.isJWT(cookie)) setCookie("", res, req);
+		if (!cookie || !validator.isJWT(cookie)) return setCookie("", res, res.locals);
 
 		//token validation from jwt
 		const { token, ipAddress }:any = jsonwebtoken.verify(cookie, jwtSecret);
@@ -38,7 +38,7 @@ export const cookieValid = async (req: Request, res: Response, next:Function) =>
 		const userData = await UserLog.findOne({ ipAddress });
 		
 		//saving the data locally for various purpose
-		res.locals = { ipAddress, ...userData };
+		res.locals = { ipAddress, ...userData, token };
 
 		next();	
     }catch (error) {
