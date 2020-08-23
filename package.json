@@ -2,7 +2,7 @@
   "name": "aptitude-helper",
   "version": "1.0.0",
   "description": "An special web app to help in aptitiude test",
-  "main": "dist/bin/www.js",
+  "main": "index.js",
   "scripts": {
     "build": "rimraf dist && tsc",
     "postinstall": "npm run build",
@@ -75,10 +75,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/nikhiljainjain/Jain-Religion-App-APIs.git"
+    "url": "git+https://github.com/nikhiljainjain/Aptitude-Helper.git"
   },
   "bugs": {
-    "url": "https://github.com/nikhiljainjain/Jain-Religion-App-APIs/issues"
+    "url": "https://github.com/nikhiljainjain/Aptitude-Helper/issues"
   },
-  "homepage": "https://github.com/nikhiljainjain/Jain-Religion-App-APIs#readme"
+  "homepage": "https://github.com/nikhiljainjain/Aptitude-Helper#readme"
 }
