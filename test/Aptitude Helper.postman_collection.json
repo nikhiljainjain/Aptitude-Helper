@@ -1,0 +1,65 @@
+{
+	"info": {
+		"_postman_id": "2e1635e3-0d77-4c52-8257-531739825fdd",
+		"name": "Aptitude Helper",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Save IP Address",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "{{testingHost}}/v1/save/unknown",
+					"host": [
+						"{{testingHost}}"
+					],
+					"path": [
+						"v1",
+						"save",
+						"unknown"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Save Words",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "strConvert",
+							"value": "",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{testingHost}}/v1/save/words",
+					"host": [
+						"{{testingHost}}"
+					],
+					"path": [
+						"v1",
+						"save",
+						"words"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"variable": [
+		{
+			"id": "247ff577-1b4d-4abd-9384-e6f9ed163239",
+			"key": "testingHost",
+			"value": "localhost:3000"
+		}
+	],
+	"protocolProfileBehavior": {}
+}
